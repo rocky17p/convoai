@@ -1,0 +1,2 @@
+- [x] Modify App.jsx: Add useState for sidebarOpen, add hamburger button in main for mobile, pass sidebarOpen and setSidebarOpen to Sidebar
+- [x] Modify Sidebar.jsx: Accept isOpen and onClose props, add conditional classes (hidden md:flex for mobile), add close button
