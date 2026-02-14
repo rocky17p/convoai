@@ -1,14 +1,14 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function getAuthHeaders() {
-  const token = localStorage.getItem('token');
-  return token ? { 'Authorization': `Bearer ${token}` } : {};
+  const token = localStorage.getItem("token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
 export async function register(email, password) {
   const response = await fetch(`${API_BASE_URL}/auth/register`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   });
   return response.json();
@@ -16,8 +16,8 @@ export async function register(email, password) {
 
 export async function login(email, password) {
   const response = await fetch(`${API_BASE_URL}/auth/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   });
   return response.json();
@@ -32,11 +32,16 @@ export async function fetchConversations(userId) {
   return response.json();
 }
 
-export async function createConversation(userId, title, type, task = 'general') {
+export async function createConversation(
+  userId,
+  title,
+  type,
+  task = "general",
+) {
   const response = await fetch(`${API_BASE_URL}/chat/conversations`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...getAuthHeaders(),
     },
     body: JSON.stringify({ userId, title, type, task }),
@@ -46,9 +51,9 @@ export async function createConversation(userId, title, type, task = 'general') 
 
 export async function sendMessage(conversationId, sender, text) {
   const response = await fetch(`${API_BASE_URL}/chat/messages`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...getAuthHeaders(),
     },
     body: JSON.stringify({ conversationId, sender, text }),
@@ -58,9 +63,9 @@ export async function sendMessage(conversationId, sender, text) {
 
 export async function handleVoiceMessage(userId, text) {
   const response = await fetch(`${API_BASE_URL}/chat/voice-message`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...getAuthHeaders(),
     },
     body: JSON.stringify({ userId, text }),
@@ -78,8 +83,8 @@ export async function fetchAgents() {
 
 export async function createAgent(agent) {
   const response = await fetch(`${API_BASE_URL}/agents`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...getAuthHeaders() },
     body: JSON.stringify(agent),
   });
   return response.json();
@@ -87,8 +92,8 @@ export async function createAgent(agent) {
 
 export async function updateAgent(id, agent) {
   const response = await fetch(`${API_BASE_URL}/agents/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+    method: "PUT",
+    headers: { "Content-Type": "application/json", ...getAuthHeaders() },
     body: JSON.stringify(agent),
   });
   return response.json();
@@ -96,7 +101,7 @@ export async function updateAgent(id, agent) {
 
 export async function deleteAgent(id) {
   const response = await fetch(`${API_BASE_URL}/agents/${id}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: getAuthHeaders(),
   });
   return response.json();
@@ -113,5 +118,3 @@ export async function fetchAnalytics(startDate, endDate) {
   });
   return response.json();
 }
-
-
